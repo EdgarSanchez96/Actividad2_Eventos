@@ -1,11 +1,7 @@
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import { useNavigation, useFocusEffect} from '@react-navigation/native';
-import React, {useState} from 'react';
-import {
-  ImageLibraryOptions,
-  launchImageLibrary,
-} from 'react-native-image-picker';
 import {format} from 'date-fns';
+import React, {useState} from 'react';
 import {
   Image,
   StyleSheet,
@@ -16,9 +12,14 @@ import {
   View,
 } from 'react-native';
 import DatePicker from 'react-native-date-picker';
+import {
+  ImageLibraryOptions,
+  launchCamera,
+  launchImageLibrary,
+} from 'react-native-image-picker';
+import Toast from 'react-native-toast-message';
 import {IEvento} from '../interfaces/interface';
 import {guardarEvento} from '../utlils/util';
-import Toast from 'react-native-toast-message'; 
 
 const defaultImage = require('../assets/default_image.png');
 
@@ -36,17 +37,17 @@ export default function NuevoEvento() {
   useFocusEffect(
     React.useCallback(() => {
       limpiarCampos();
-    }, [])
-  )
+    }, []),
+  );
 
   const limpiarCampos = () => {
-    setTitulo("");
-    setFecha("");
-    setImagen("");
+    setTitulo('');
+    setFecha('');
+    setImagen('');
     setCustomImageSelected(false);
     setGratuito(true);
-    setCosto("");
-  }
+    setCosto('');
+  };
 
   const agregarEvento = async () => {
     if (!titulo) {
@@ -94,6 +95,27 @@ export default function NuevoEvento() {
     tabNavigation.navigate('Eventos');
   };
 
+  const tomarFoto = () => {
+    const options: ImageLibraryOptions = {
+      mediaType: 'photo',
+      includeBase64: false,
+    };
+
+    launchCamera(options, response => {
+      if (response.didCancel) {
+        console.log('El usuario canceló la toma de foto.');
+      } else if (response.errorCode) {
+        console.error('Error al tomar la foto:', response.errorMessage);
+      } else {
+        let image = response.assets;
+        if (image != undefined) {
+          setImagen(image[0].uri);
+          setCustomImageSelected(true);
+        }
+      }
+    });
+  };
+
   const seleccionarImagen = () => {
     const options: ImageLibraryOptions = {
       mediaType: 'photo',
@@ -128,6 +150,9 @@ export default function NuevoEvento() {
         source={customImageSelected ? {uri: imagen} : defaultImage}
         style={styles.imagenSeleccionada}
       />
+      <TouchableOpacity style={styles.button} onPress={tomarFoto}>
+        <Text style={styles.buttonText}>Tomar Foto</Text>
+      </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={seleccionarImagen}>
         <Text style={styles.buttonText}>Seleccionar Imagen</Text>
       </TouchableOpacity>
@@ -189,7 +214,7 @@ export default function NuevoEvento() {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.buttonSecondary}
-        onPress={() =>  tabNavigation.navigate('Eventos')}>
+        onPress={() => tabNavigation.navigate('Eventos')}>
         <Text style={styles.buttonTextSecondary}>Listar Eventos</Text>
       </TouchableOpacity>
     </View>
