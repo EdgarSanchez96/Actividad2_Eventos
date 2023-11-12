@@ -68,7 +68,7 @@ function App(): JSX.Element {
             name="DetallesEvento"
             component={DetallesEvento}
             options={{
-              title: 'Detalles Evento',
+              title: 'Detalles del Evento'
             }}
           />
         </Stack.Navigator>
