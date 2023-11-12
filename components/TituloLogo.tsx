@@ -8,7 +8,7 @@ interface TituloLogoProps {
 const TituloLogo: React.FC<TituloLogoProps> = ({titulo}) => {
   return (
     <View style={styles.container}>
-      <Image style={styles.imagen} source={require('../assets/logo_v2.png')} />
+      <Image style={styles.imagen} source={require('../assets/logo.png')} />
       <Text style={styles.fuente}>{titulo}</Text>
     </View>
   );
