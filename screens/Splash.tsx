@@ -1,55 +1,66 @@
-import {
-    NativeStackNavigationProp
-} from '@react-navigation/native-stack';
-import React, { useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, {useEffect} from 'react';
+import {StyleSheet, View, Image, Text} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 
-// Definir el tipo de las rutas y la navegación
-type RootStackParamList = {
-  Splash: undefined;
-  Home: undefined;
-};
+import {StackNavigationProp} from '@react-navigation/stack';
 
-type SplashNavigationProp = NativeStackNavigationProp<
-  RootStackParamList,
-  'Splash'
->;
+interface Props {
+  navigation: StackNavigationProp<any>;
+}
 
-type SplashProps = {
-  navigation: SplashNavigationProp;
-};
-export default function Splash({navigation}: SplashProps) {
-  //https://developer.mozilla.org/es/docs/Web/API/setTimeout
+export default function Splash({navigation}: Props) {
   useEffect(() => {
     setTimeout(() => {
-      //navigate y despues lanzar la pregunta
       navigation.replace('Home');
     }, 2000);
   }, []);
 
   return (
     <View style={styles.container}>
-      <Animatable.Text
-        style={styles.fuente}
-        duration={2000}
-        animation="slideInDown">
-        Splash
-      </Animatable.Text>
+      <View style={styles.content}>
+        <Animatable.Text
+          style={styles.title}
+          duration={2000}
+          animation="slideInDown">
+          EVENTOS LOJA
+        </Animatable.Text>
+        <Text style={styles.slogan}>Conoce mi ciudad</Text>
+      </View>
+      <Image
+        style={styles.image}
+        source={require('../assets/logo_splash.png')}
+        resizeMode="contain"
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'black',
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: '#E94067',
+  },
+  content: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
+    paddingLeft: 30,
   },
-  fuente: {
+  title: {
     color: 'white',
     fontSize: 36,
     fontWeight: '800',
+    marginBottom: 10,
+  },
+  slogan: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: '400',
+  },
+  image: {
+    marginRight: 30,
+    marginTop: 10,
+    width: '40%',
   },
 });

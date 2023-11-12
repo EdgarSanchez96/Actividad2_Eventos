@@ -1,8 +1,8 @@
-import {View, Text, Image, StyleSheet} from 'react-native';
 import React from 'react';
+import {Image, StyleSheet, Text, View} from 'react-native';
 
 interface TituloLogoProps {
-  titulo: string; // Aquí especificamos que 'titulo' debe ser de tipo string
+  titulo: string;
 }
 
 const TituloLogo: React.FC<TituloLogoProps> = ({titulo}) => {

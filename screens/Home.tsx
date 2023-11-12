@@ -1,6 +1,6 @@
-import {View, Text, StyleSheet, Button} from 'react-native';
-import React from 'react';
 import {StackNavigationProp} from '@react-navigation/stack';
+import React from 'react';
+import {Button, Image, StyleSheet, View} from 'react-native';
 
 interface Props {
   navigation: StackNavigationProp<any>;
@@ -9,18 +9,21 @@ interface Props {
 export default function Home({navigation}: Props) {
   return (
     <View style={styles.container}>
-      <Text style={styles.fuente}>Inicio</Text>
+      <Image
+        style={styles.logo}
+        source={require('../assets/logo.png')}
+      />
       <View style={styles.buttonContainer}>
         <Button
           title="Ir a los eventos"
           onPress={() => navigation.navigate('Eventos')}
-          color="#6200ea" // Color personalizado para el botón
+          color="#E94067"
         />
         <View style={styles.separator} />
         <Button
           title="Nuevo evento"
           onPress={() => navigation.navigate('NuevoEvento')}
-          color="#6200ea" // Color personalizado para el botón
+          color="#E94067"
         />
       </View>
     </View>
@@ -29,7 +32,7 @@ export default function Home({navigation}: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#03dac6',
+    backgroundColor: '#F6ECEB',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -46,7 +49,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     resizeMode: 'contain',
-    marginBottom: 20,
+    marginBottom: 10,
   },
   separator: {
     marginVertical: 10,
