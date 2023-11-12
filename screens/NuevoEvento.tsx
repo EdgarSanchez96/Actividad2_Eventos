@@ -1,4 +1,6 @@
 import {StackNavigationProp} from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
+
 import React, {useState} from 'react';
 import {
   ImageLibraryOptions,
@@ -17,15 +19,12 @@ import {
 import DatePicker from 'react-native-date-picker';
 import {IEvento} from '../interfaces/interface';
 import {guardarEvento} from '../utlils/util';
-import Toast from 'react-native-toast-message'; // Importa la biblioteca
-
-interface Props {
-  navigation: StackNavigationProp<any>;
-}
+import Toast from 'react-native-toast-message'; 
 
 const defaultImage = require('../assets/default_image.png');
 
-export default function NuevoEvento({navigation}: Props) {
+export default function NuevoEvento() {
+  const tabNavigation = useNavigation<StackNavigationProp<any>>();
   const [titulo, setTitulo] = useState('');
   const [fecha, setFecha] = useState('');
   const [imagen, setImagen] = useState<string | null>();
@@ -50,7 +49,7 @@ export default function NuevoEvento({navigation}: Props) {
         type: 'error',
         text1: 'Atención',
         text2: 'El campo Fecha es obligatorio.',
-        visibilityTime: 3000, // Tiempo en milisegundos que durará visible
+        visibilityTime: 3000,
       });
       return;
     }
@@ -78,7 +77,7 @@ export default function NuevoEvento({navigation}: Props) {
       gratuito: gratuito,
     };
     await guardarEvento(nuevoEvento);
-    navigation.replace('Eventos');
+    tabNavigation.navigate('Eventos');
   };
 
   const seleccionarImagen = () => {
@@ -176,7 +175,7 @@ export default function NuevoEvento({navigation}: Props) {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.buttonSecondary}
-        onPress={() => navigation.navigate('Eventos')}>
+        onPress={() =>  tabNavigation.navigate('Eventos')}>
         <Text style={styles.buttonTextSecondary}>Listar Eventos</Text>
       </TouchableOpacity>
     </View>
