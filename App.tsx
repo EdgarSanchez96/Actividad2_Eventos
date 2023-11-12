@@ -46,11 +46,14 @@ function App(): JSX.Element {
               headerShadowVisible: false,
             }}
           />
-           <Stack.Screen
+          <Stack.Screen
             name="DetallesEvento"
             component={DetallesEvento}
             options={{
-              title: 'Detalles del Evento'
+              title: 'Detalles del Evento',
+              headerStyle: {
+                backgroundColor: '#fbbc14',
+              },
             }}
           />
         </Stack.Navigator>
