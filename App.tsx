@@ -10,7 +10,11 @@ import Eventos from './screens/Eventos';
 import NuevoEvento from './screens/NuevoEvento';
 import TituloLogo from './components/TituloLogo';
 import Splash from './screens/Splash';
+<<<<<<< HEAD
 import AppTabs from './screens/AppTabs';
+=======
+import DetallesEvento from './screens/DetallesEvento';
+>>>>>>> 46aae238758db308c52abb6354d384cf5253b2a1
 
 const Stack = createNativeStackNavigator();
 
@@ -54,6 +58,13 @@ function App(): JSX.Element {
                 backgroundColor: '#fff',
               },
               title:'Nuevo Evento'
+            }}
+          />
+          <Stack.Screen
+            name="DetallesEvento"
+            component={DetallesEvento}
+            options={{
+              title: 'Detalles Evento'
             }}
           />
         </Stack.Navigator>
