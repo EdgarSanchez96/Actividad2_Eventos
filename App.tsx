@@ -1,17 +1,17 @@
 import React from 'react';
-import {StyleSheet, StatusBar} from 'react-native';
-import Toast from 'react-native-toast-message'
+import {StatusBar} from 'react-native';
+import Toast from 'react-native-toast-message';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Home from './screens/Home';
-import ScreenA from './screens/ScreenA';
-import Eventos from './screens/Eventos';
-import NuevoEvento from './screens/NuevoEvento';
 import TituloLogo from './components/TituloLogo';
-import Splash from './screens/Splash';
 import AppTabs from './screens/AppTabs';
 import DetallesEvento from './screens/DetallesEvento';
+import Eventos from './screens/Eventos';
+import Home from './screens/Home';
+import NuevoEvento from './screens/NuevoEvento';
+import ScreenA from './screens/ScreenA';
+import Splash from './screens/Splash';
 
 const Stack = createNativeStackNavigator();
 
@@ -33,12 +33,19 @@ function App(): JSX.Element {
               headerShadowVisible: false,
             }}
           />
-          <Stack.Screen name="AppTabs" component={AppTabs} />
+          <Stack.Screen
+            name="AppTabs"
+            component={AppTabs}
+            options={{headerShown: false}}
+          />
           <Stack.Screen
             name="Home"
             component={Home}
             options={{
-              headerTitle: props => <TituloLogo titulo="Eventos Loja - FIAVL" />, headerTransparent:true
+              headerTitle: props => (
+                <TituloLogo titulo="Eventos Loja - FIAVL" />
+              ),
+              headerTransparent: true,
             }}
           />
           <Stack.Screen name="ScreenA" component={ScreenA} />
@@ -54,14 +61,14 @@ function App(): JSX.Element {
               contentStyle: {
                 backgroundColor: '#fff',
               },
-              title:'Nuevo Evento'
+              title: 'Nuevo Evento',
             }}
           />
           <Stack.Screen
             name="DetallesEvento"
             component={DetallesEvento}
             options={{
-              title: 'Detalles Evento'
+              title: 'Detalles Evento',
             }}
           />
         </Stack.Navigator>

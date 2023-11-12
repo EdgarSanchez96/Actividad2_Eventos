@@ -18,9 +18,7 @@ export default function AppTabs() {
         component={Home}
         options={{
           tabBarLabel: 'Inicio',
-          tabBarIcon: ({ color }) => (
-            <Icon name="home" color={color} size={26} />
-          ),
+          tabBarIcon: ({color}) => <Icon name="home" color={color} size={26} />,
         }}
       />
       <Tab.Screen
@@ -38,13 +36,7 @@ export default function AppTabs() {
         component={NuevoEvento}
         options={{
           tabBarLabel: 'Nuevo Evento',
-          tabBarIcon: ({color}) => (
-            <Icon
-              name="add"
-              color={color}
-              size={26}
-            />
-          ),
+          tabBarIcon: ({color}) => <Icon name="add" color={color} size={26} />,
         }}
       />
     </Tab.Navigator>
