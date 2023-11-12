@@ -8,7 +8,7 @@ interface TituloLogoProps {
 const TituloLogo: React.FC<TituloLogoProps> = ({titulo}) => {
   return (
     <View style={styles.container}>
-      <Image style={styles.imagen} source={require('../assets/logo.png')} />
+      <Image style={styles.imagen} source={require('../assets/logo_v2.png')} />
       <Text style={styles.fuente}>{titulo}</Text>
     </View>
   );
@@ -28,8 +28,9 @@ const styles = StyleSheet.create({
     flex: 1,
     marginStart: 10,
     alignSelf: 'center',
-    color: '#000',
+    color: '#413c28',
     fontSize: 20,
+    fontWeight: 'bold',
   },
 });
 

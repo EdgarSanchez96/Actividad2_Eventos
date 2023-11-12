@@ -35,11 +35,11 @@ export default function Splash({navigation}: Props) {
           animation="slideInDown">
           EVENTOS LOJA
         </Animatable.Text>
-        <Text style={styles.slogan}>Conoce mi ciudad</Text>
+        <Text style={styles.slogan}>Festival Internacional de Artes Vivas</Text>
       </View>
       <Image
         style={styles.image}
-        source={require('../assets/logo_splash.png')}
+        source={require('../assets/logo_splash.jpg')}
         resizeMode="contain"
       />
     </View>
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#E94067',
+    backgroundColor: '#fbbc14',
   },
   content: {
     flex: 1,
@@ -65,13 +65,16 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   slogan: {
-    color: 'white',
+    color: '#413c28',
     fontSize: 18,
-    fontWeight: '400',
+    fontWeight: '600',
   },
   image: {
     marginRight: 30,
     marginTop: 10,
     width: '40%',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+
   },
 });

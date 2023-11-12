@@ -16,7 +16,7 @@ const Stack = createNativeStackNavigator();
 function App(): JSX.Element {
   return (
     <>
-      <StatusBar backgroundColor="#E94067" barStyle="light-content" />
+      <StatusBar backgroundColor="#fbbc14" barStyle="light-content" />
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Splash">
           <Stack.Screen
@@ -25,9 +25,9 @@ function App(): JSX.Element {
             options={{
               title: '',
               headerStyle: {
-                backgroundColor: '#E94067',
+                backgroundColor: '#fbbc14',
               },
-              headerTintColor: '#E94067',
+              headerTintColor: '#fbbc14',
               headerShadowVisible: false,
             }}
           />
@@ -35,7 +35,7 @@ function App(): JSX.Element {
             name="Home"
             component={Home}
             options={{
-              headerTitle: props => <TituloLogo titulo="Eventos Loja" />,
+              headerTitle: props => <TituloLogo titulo="Eventos Loja - FIAVL" />, headerTransparent:true
             }}
           />
           <Stack.Screen name="ScreenA" component={ScreenA} />

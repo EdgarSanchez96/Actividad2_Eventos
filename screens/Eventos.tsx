@@ -30,7 +30,7 @@ const Evento: React.FC<PropsEvento> = ({evento, navigation}: PropsEvento) => (
       source={
         evento.imagen
           ? {uri: evento.imagen}
-          : require('../assets/default_image.png')
+          : require('../assets/default_image_V2.png')
       }
       style={styles.eventoImagen}
     />
@@ -146,12 +146,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   buttonPrimary: {
-    backgroundColor: '#E94067',
+    backgroundColor: '#fbbc14',
     padding: 10,
     borderRadius: 20,
   },
   buttonTextPrimary: {
-    color: '#F6ECEB',
+    color: '#413c28',
     fontSize: 16,
     textAlign: 'center',
   },

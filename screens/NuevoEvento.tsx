@@ -23,7 +23,7 @@ interface Props {
   navigation: StackNavigationProp<any>;
 }
 
-const defaultImage = require('../assets/default_image.png');
+const defaultImage = require('../assets/default_image_V2.png');
 
 export default function NuevoEvento({navigation}: Props) {
   const [titulo, setTitulo] = useState('');
@@ -148,7 +148,7 @@ export default function NuevoEvento({navigation}: Props) {
         <Text style={styles.label}>¿Gratuito?:</Text>
         <Switch
           trackColor={{false: '#767577', true: '#F6ECEB'}}
-          thumbColor={gratuito ? '#E94067' : '#f4f3f4'}
+          thumbColor={gratuito ? '#fbbc14' : '#f4f3f4'}
           ios_backgroundColor="#3e3e3e"
           onValueChange={() => setGratuito(!gratuito)}
           value={gratuito}
@@ -177,7 +177,7 @@ export default function NuevoEvento({navigation}: Props) {
       <TouchableOpacity
         style={styles.buttonSecondary}
         onPress={() => navigation.navigate('Eventos')}>
-        <Text style={styles.buttonTextPrimary}>Listar Eventos</Text>
+        <Text style={styles.buttonTextSecondary}>Listar Eventos</Text>
       </TouchableOpacity>
     </View>
   );
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    borderColor: 'gray',
+    borderColor: '#413c28',
     borderWidth: 1,
     marginBottom: 20,
     paddingHorizontal: 10,
@@ -213,23 +213,28 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   buttonSecondary: {
-    backgroundColor: 'gray',
+    backgroundColor: '#413c28',
     padding: 10,
     borderRadius: 20,
     marginBottom: 10,
   },
   buttonText: {
-    color: '#E94067',
+    color: '#413c28',
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  buttonTextSecondary: {
+    color: 'white',
     fontSize: 16,
     textAlign: 'center',
   },
   buttonTextPrimary: {
-    color: '#F6ECEB',
+    color: '#413c28',
     fontSize: 16,
     textAlign: 'center',
   },
   buttonPrimary: {
-    backgroundColor: '#E94067',
+    backgroundColor: '#fbbc14',
     padding: 10,
     borderRadius: 20,
     marginBottom: 10,
