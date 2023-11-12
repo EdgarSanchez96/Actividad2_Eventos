@@ -1,16 +1,17 @@
 import {useFocusEffect} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   FlatList,
+  Image,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  Image,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {IEvento} from '../interfaces/interface';
-import {limpiarEventos, obtenerEventos} from '../utlils/util';
+import {eliminarEvento, obtenerEventos} from '../utlils/util';
 
 interface Props {
   navigation: StackNavigationProp<any>;
@@ -20,9 +21,14 @@ interface Props {
 interface PropsEvento {
   evento: any;
   navigation: StackNavigationProp<any>;
+  actualizarEventos: () => void; // Nueva prop para actualizar eventos
 }
 
-const Evento: React.FC<PropsEvento> = ({evento, navigation}: PropsEvento) => (
+const Evento: React.FC<PropsEvento> = ({
+  evento,
+  navigation,
+  actualizarEventos,
+}: PropsEvento) => (
   <TouchableOpacity
     style={styles.eventoCard}
     onPress={() => navigation.navigate('DetallesEvento', {evento})}>
@@ -43,6 +49,13 @@ const Evento: React.FC<PropsEvento> = ({evento, navigation}: PropsEvento) => (
         <Text style={styles.eventoPago}>De pago</Text>
       )}
     </View>
+    <TouchableOpacity
+      onPress={async () => {
+        await eliminarEvento(evento.id);
+        actualizarEventos(); // Llama a la función de actualización después de eliminar
+      }}>
+      <Icon name="times" size={55} color="#DB0000" />
+    </TouchableOpacity>
   </TouchableOpacity>
 );
 
@@ -50,21 +63,25 @@ export default function Eventos({navigation}: Props) {
   const [eventos, setEventos] = useState<IEvento[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const obtenerEventosGuardados = async () => {
+    try {
+      const eventosGuardados = await obtenerEventos();
+      setEventos(eventosGuardados);
+    } catch (error) {
+      console.error('Error al obtener eventos:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Función de actualización para cargar los eventos nuevamente
+  const actualizarEventos = useCallback(() => {
+    obtenerEventosGuardados();
+  }, []);
+
   useFocusEffect(
     React.useCallback(() => {
-      const obtenerEventosGuardados = async () => {
-        try {
-          const eventosGuardados = await obtenerEventos();
-          setEventos(eventosGuardados);
-        } catch (error) {
-          console.error('Error al obtener eventos:', error);
-        } finally {
-          setLoading(false);
-        }
-      };
-
       obtenerEventosGuardados();
-      // limpiarEventos();
     }, []),
   );
 
@@ -95,7 +112,11 @@ export default function Eventos({navigation}: Props) {
         data={eventos}
         keyExtractor={item => item.id}
         renderItem={({item}) => (
-          <Evento evento={item} navigation={navigation} />
+          <Evento
+            evento={item}
+            navigation={navigation}
+            actualizarEventos={actualizarEventos}
+          />
         )}
       />
       <TouchableOpacity

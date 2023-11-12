@@ -19,6 +19,23 @@ export const guardarEvento = async (evento: IEvento) => {
   }
 };
 
+export const eliminarEvento = async (idEvento: string) => {
+  try {
+    let eventosGuardados = JSON.parse(
+      (await AsyncStorage.getItem(EVENTOS_KEY)) || '[]',
+    ) as IEvento[];
+
+    // Filtrar eventos para excluir el que coincida con el idEvento
+    eventosGuardados = eventosGuardados.filter(
+      (evento: IEvento) => evento.id !== idEvento,
+    );
+
+    await AsyncStorage.setItem(EVENTOS_KEY, JSON.stringify(eventosGuardados));
+  } catch (error) {
+    console.error('Error al eliminar el evento:', error);
+  }
+};
+
 export const obtenerEventos = async (): Promise<IEvento[]> => {
   try {
     // Intenta cargar eventos desde AsyncStorage
