@@ -64,7 +64,7 @@ export default function Eventos({navigation}: Props) {
       };
 
       obtenerEventosGuardados();
-      limpiarEventos();
+      // limpiarEventos();
     }, []),
   );
 

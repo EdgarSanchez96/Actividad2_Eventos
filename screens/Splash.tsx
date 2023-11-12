@@ -3,6 +3,7 @@ import {StyleSheet, View, Image, Text} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 
 import {StackNavigationProp} from '@react-navigation/stack';
+import {guardarEventos, obtenerEventos} from '../utlils/util';
 
 interface Props {
   navigation: StackNavigationProp<any>;
@@ -10,10 +11,20 @@ interface Props {
 
 export default function Splash({navigation}: Props) {
   useEffect(() => {
-    setTimeout(() => {
-      navigation.replace('Home');
-    }, 2000);
-  }, []);
+    const obtenerYGuardarEventos = async () => {
+      try {
+        const eventos = await obtenerEventos();
+        await guardarEventos(eventos);
+        setTimeout(() => {
+          navigation.replace('Home');
+        }, 2000);
+      } catch (error) {
+        console.error('Error en Splash:', error);
+      }
+    };
+
+    obtenerYGuardarEventos();
+  }, [navigation]);
 
   return (
     <View style={styles.container}>

@@ -45,3 +45,12 @@ export const limpiarEventos = async () => {
     throw new Error('Error al limpiar el almacenamiento de eventos.');
   }
 };
+
+export const guardarEventos = async (eventos: IEvento[]) => {
+  try {
+    // Guarda los eventos en el almacenamiento
+    await AsyncStorage.setItem(EVENTOS_KEY, JSON.stringify(eventos));
+  } catch (error) {
+    console.error('Error al guardar los eventos:', error);
+  }
+};

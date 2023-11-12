@@ -17,6 +17,7 @@ import {
 import DatePicker from 'react-native-date-picker';
 import {IEvento} from '../interfaces/interface';
 import {guardarEvento} from '../utlils/util';
+import Toast from 'react-native-toast-message'; // Importa la biblioteca
 
 interface Props {
   navigation: StackNavigationProp<any>;
@@ -29,15 +30,44 @@ export default function NuevoEvento({navigation}: Props) {
   const [fecha, setFecha] = useState('');
   const [imagen, setImagen] = useState<string | null>();
   const [gratuito, setGratuito] = useState(true);
-  const [costo, setCosto] = useState<number | null>(null);
+  const [costo, setCosto] = useState<string>(''); // Cambiado a string para permitir decimales
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [customImageSelected, setCustomImageSelected] = useState(false);
 
   const agregarEvento = async () => {
-    if (!titulo || !fecha) {
-      console.warn('Todos los campos son obligatorios.');
+    if (!titulo) {
+      Toast.show({
+        type: 'error',
+        text1: 'Atención',
+        text2: 'El campo Título es obligatorio..',
+        visibilityTime: 3000,
+      });
       return;
+    }
+    if (!fecha) {
+      Toast.show({
+        type: 'error',
+        text1: 'Atención',
+        text2: 'El campo Fecha es obligatorio.',
+        visibilityTime: 3000, // Tiempo en milisegundos que durará visible
+      });
+      return;
+    }
+
+    if (!gratuito) {
+      const costoNumber = parseFloat(costo.replace(',', '.'));
+
+      if (isNaN(costoNumber) || costoNumber <= 0) {
+        Toast.show({
+          type: 'error',
+          text1: 'Atención',
+          text2:
+            'El costo debe ser un número decimal mayor a cero.',
+          visibilityTime: 3000,
+        });
+        return;
+      }
     }
 
     const nuevoEvento: IEvento = {
@@ -45,7 +75,7 @@ export default function NuevoEvento({navigation}: Props) {
       titulo: titulo,
       fecha: fecha,
       imagen: customImageSelected ? imagen : null,
-      costo: costo,
+      costo: parseFloat(costo), // Convertir a número decimal
       gratuito: gratuito,
     };
     await guardarEvento(nuevoEvento);
@@ -130,13 +160,15 @@ export default function NuevoEvento({navigation}: Props) {
       </View>
       {!gratuito && (
         <>
-          <Text style={styles.label}>Costo del Evento:</Text>
-          <TextInput
-            style={styles.input}
-            value={costo ? costo.toString() : ''}
-            onChangeText={text => setCosto(Number(text))}
-            keyboardType="decimal-pad"
-          />
+          <View>
+            <Text style={styles.label}>Costo del Evento:</Text>
+            <TextInput
+              style={styles.input}
+              value={costo ? costo.toString() : ''}
+              onChangeText={text => setCosto(text)}
+              keyboardType="decimal-pad"
+            />
+          </View>
         </>
       )}
 
