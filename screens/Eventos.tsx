@@ -30,7 +30,7 @@ const Evento: React.FC<PropsEvento> = ({evento, navigation}: PropsEvento) => (
       source={
         evento.imagen
           ? {uri: evento.imagen}
-          : require('../assets/default_image_V2.png')
+          : require('../assets/default_image.png')
       }
       style={styles.eventoImagen}
     />
