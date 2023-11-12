@@ -1,18 +1,21 @@
 [
     {
-        "id": "1",
-        "titulo": "Concierto en el Parque",
-        "fecha": "10/11/2007",
-        "imagen": null,
-        "gratuito": true,
-        "costo": null
+      "id": "1",
+      "titulo": "Concierto en el Parque",
+      "fecha_hora": "10/11/2007 18:30",
+      "descripcion": "Un emocionante concierto al aire libre en el hermoso Parque Central. Ven y disfruta de una noche llena de música variada y diversión para toda la familia.",
+      "imagen": null,
+      "gratuito": true,
+      "costo": null
     },
     {
-        "id": "2",
-        "titulo": "Feria de Arte Local",
-        "fecha": "15/11/2023",
-        "imagen": null,
-        "gratuito": false,
-        "costo": 2.5
+      "id": "2",
+      "titulo": "Feria de Arte Local",
+      "fecha_hora": "15/11/2023 14:00",
+      "descripcion": "Explora increíbles obras de arte locales en nuestra Feria de Arte. Este evento presenta talentosos artistas de la comunidad y ofrece la oportunidad de adquirir piezas únicas.",
+      "imagen": null,
+      "gratuito": false,
+      "costo": 2.5
     }
-]
+  ]
+  

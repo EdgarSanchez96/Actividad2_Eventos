@@ -22,6 +22,7 @@
     "react-native-animatable": "^1.4.0",
     "react-native-date-picker": "^4.3.3",
     "react-native-datepicker": "^1.7.2",
+    "react-native-dialog": "^9.3.0",
     "react-native-gesture-handler": "^2.13.4",
     "react-native-google-fonts": "^0.0.0",
     "react-native-image-picker": "^7.0.2",

@@ -41,7 +41,7 @@ export const obtenerEventos = async (): Promise<IEvento[]> => {
     // Intenta cargar eventos desde AsyncStorage
     const eventosGuardados = await AsyncStorage.getItem(EVENTOS_KEY);
 
-    if (eventosGuardados) {
+    if (eventosGuardados && eventosGuardados.length > 0) {
       return JSON.parse(eventosGuardados) as IEvento[];
     }
     // return [];

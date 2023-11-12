@@ -10,7 +10,6 @@ import DetallesEvento from './screens/DetallesEvento';
 import Eventos from './screens/Eventos';
 import Home from './screens/Home';
 import NuevoEvento from './screens/NuevoEvento';
-import ScreenA from './screens/ScreenA';
 import Splash from './screens/Splash';
 
 const Stack = createNativeStackNavigator();
@@ -36,35 +35,18 @@ function App(): JSX.Element {
           <Stack.Screen
             name="AppTabs"
             component={AppTabs}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="Home"
-            component={Home}
             options={{
+              headerShown: true,
               headerTitle: props => (
                 <TituloLogo titulo="Eventos Loja - FIAVL" />
               ),
-              headerTransparent: true,
-            }}
-          />
-          <Stack.Screen name="ScreenA" component={ScreenA} />
-          <Stack.Screen name="Eventos" component={Eventos} />
-          <Stack.Screen
-            name="NuevoEvento"
-            component={NuevoEvento}
-            options={{
-              headerShadowVisible: false,
               headerStyle: {
-                backgroundColor: '#fff',
+                backgroundColor: '#fbbc14',
               },
-              contentStyle: {
-                backgroundColor: '#fff',
-              },
-              title: 'Nuevo Evento',
+              headerShadowVisible: false,
             }}
           />
-          <Stack.Screen
+           <Stack.Screen
             name="DetallesEvento"
             component={DetallesEvento}
             options={{

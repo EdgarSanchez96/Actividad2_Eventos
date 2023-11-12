@@ -12,6 +12,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {IEvento} from '../interfaces/interface';
 import {eliminarEvento, obtenerEventos} from '../utlils/util';
+import Dialog from 'react-native-dialog';
 
 interface Props {
   navigation: StackNavigationProp<any>;
@@ -21,43 +22,63 @@ interface Props {
 interface PropsEvento {
   evento: any;
   navigation: StackNavigationProp<any>;
-  actualizarEventos: () => void; // Nueva prop para actualizar eventos
+  actualizarEventos: () => void; 
 }
 
 const Evento: React.FC<PropsEvento> = ({
   evento,
   navigation,
   actualizarEventos,
-}: PropsEvento) => (
-  <TouchableOpacity
-    style={styles.eventoCard}
-    onPress={() => navigation.navigate('DetallesEvento', {evento})}>
-    <Image
-      source={
-        evento.imagen
-          ? {uri: evento.imagen}
-          : require('../assets/default_image.png')
-      }
-      style={styles.eventoImagen}
-    />
-    <View style={styles.eventoInfo}>
-      <Text style={styles.eventoTitulo}>{evento.titulo}</Text>
-      <Text style={styles.eventoFecha}>{evento.fecha}</Text>
-      {evento.gratuito ? (
-        <Text style={styles.eventoGratuito}>Gratuito</Text>
-      ) : (
-        <Text style={styles.eventoPago}>De pago</Text>
-      )}
-    </View>
+}: PropsEvento) => {
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+
+  const handleDelete = async () => {
+    await eliminarEvento(evento.id);
+    actualizarEventos();
+    setShowDeleteDialog(false);
+  };
+
+  return (
     <TouchableOpacity
-      onPress={async () => {
-        await eliminarEvento(evento.id);
-        actualizarEventos(); // Llama a la función de actualización después de eliminar
-      }}>
-      <Icon name="times" size={55} color="#DB0000" />
+      style={styles.eventoCard}
+      onPress={() => navigation.navigate('DetallesEvento', { evento })}>
+      <Image
+        source={
+          evento.imagen
+            ? { uri: evento.imagen }
+            : require('../assets/default_image.png')
+        }
+        style={styles.eventoImagen}
+      />
+      <View style={styles.eventoInfo}>
+        <Text style={styles.eventoTitulo}>{evento.titulo}</Text>
+        <Text style={styles.eventoFecha}>{evento.fecha_hora}</Text>
+        {evento.gratuito ? (
+          <Text style={styles.eventoGratuito}>Gratuito</Text>
+        ) : (
+          <Text style={styles.eventoPago}>De pago</Text>
+        )}
+      </View>
+      <TouchableOpacity onPress={() => setShowDeleteDialog(true)}>
+        <Icon name="times" size={55} color="#DB0000" />
+      </TouchableOpacity>
+
+      {/* Diálogo de confirmación para eliminar */}
+      <Dialog.Container visible={showDeleteDialog}>
+        <Dialog.Title>Eliminar Evento</Dialog.Title>
+        <Dialog.Description>
+          ¿Estás seguro de que deseas eliminar este evento?
+        </Dialog.Description>
+        <Dialog.Button
+          label="Cancelar"
+          onPress={() => setShowDeleteDialog(false)}
+        />
+        <Dialog.Button label="Eliminar" onPress={handleDelete} />
+      </Dialog.Container>
     </TouchableOpacity>
-  </TouchableOpacity>
-);
+  );
+};
+
 
 export default function Eventos({navigation}: Props) {
   const [eventos, setEventos] = useState<IEvento[]>([]);
