@@ -23,7 +23,7 @@ interface Props {
   navigation: StackNavigationProp<any>;
 }
 
-const defaultImage = require('../assets/default_image_V2.png');
+const defaultImage = require('../assets/default_image.png');
 
 export default function NuevoEvento({navigation}: Props) {
   const [titulo, setTitulo] = useState('');
