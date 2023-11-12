@@ -1,11 +1,14 @@
 import React from 'react';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Button, ImageBackground, StyleSheet, View } from 'react-native';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface Props {
   navigation: StackNavigationProp<any>;
 }
 
+const Tab = createMaterialBottomTabNavigator();
 export default function Home({ navigation }: Props) {
   return (
     <ImageBackground

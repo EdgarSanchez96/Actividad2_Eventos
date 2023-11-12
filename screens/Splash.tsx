@@ -16,7 +16,7 @@ export default function Splash({navigation}: Props) {
         const eventos = await obtenerEventos();
         await guardarEventos(eventos);
         setTimeout(() => {
-          navigation.replace('Home');
+          navigation.replace('AppTabs');
         }, 2000);
       } catch (error) {
         console.error('Error en Splash:', error);

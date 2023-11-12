@@ -10,6 +10,7 @@ import Eventos from './screens/Eventos';
 import NuevoEvento from './screens/NuevoEvento';
 import TituloLogo from './components/TituloLogo';
 import Splash from './screens/Splash';
+import AppTabs from './screens/AppTabs';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +32,7 @@ function App(): JSX.Element {
               headerShadowVisible: false,
             }}
           />
+          <Stack.Screen name="AppTabs" component={AppTabs} />
           <Stack.Screen
             name="Home"
             component={Home}
