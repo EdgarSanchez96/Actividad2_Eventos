@@ -1,6 +1,5 @@
 import {StackNavigationProp} from '@react-navigation/stack';
-import { useNavigation } from '@react-navigation/native';
-
+import { useNavigation, useFocusEffect} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {
   ImageLibraryOptions,
@@ -33,6 +32,21 @@ export default function NuevoEvento() {
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [customImageSelected, setCustomImageSelected] = useState(false);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      limpiarCampos();
+    }, [])
+  )
+
+  const limpiarCampos = () => {
+    setTitulo("");
+    setFecha("");
+    setImagen("");
+    setCustomImageSelected(false);
+    setGratuito(true);
+    setCosto("");
+  }
 
   const agregarEvento = async () => {
     if (!titulo) {

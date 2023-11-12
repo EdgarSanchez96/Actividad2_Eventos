@@ -119,11 +119,6 @@ export default function Eventos({navigation}: Props) {
           />
         )}
       />
-      <TouchableOpacity
-        style={styles.buttonPrimary}
-        onPress={() => navigation.navigate('NuevoEvento')}>
-        <Text style={styles.buttonTextPrimary}>Agregar Evento</Text>
-      </TouchableOpacity>
     </View>
   );
 }
