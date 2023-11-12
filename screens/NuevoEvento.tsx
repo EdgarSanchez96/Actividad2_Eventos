@@ -1,7 +1,7 @@
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {format} from 'date-fns';
 import React, {useState} from 'react';
+import {format} from 'date-fns';
 import {
   Image,
   StyleSheet,
@@ -20,7 +20,6 @@ import {
 import Toast from 'react-native-toast-message';
 import {IEvento} from '../interfaces/interface';
 import {guardarEvento} from '../utlils/util';
-
 const defaultImage = require('../assets/default_image.png');
 
 export default function NuevoEvento() {
@@ -31,6 +30,7 @@ export default function NuevoEvento() {
   const [gratuito, setGratuito] = useState(true);
   const [costo, setCosto] = useState<string>(''); // Cambiado a string para permitir decimales
   const [date, setDate] = useState(new Date());
+  const [descripcion, setDescripcion] = useState<string>(''); // Nuevo campo para la descripción
   const [open, setOpen] = useState(false);
   const [customImageSelected, setCustomImageSelected] = useState(false);
 
@@ -140,7 +140,7 @@ export default function NuevoEvento() {
   const onDateChange = (selectedDate: Date) => {
     setOpen(false);
     setDate(selectedDate);
-    const formattedDate = format(selectedDate, 'dd/MM/yyyy');
+    const formattedDate = format(selectedDate, 'dd/MM/yyyy HH:mm');
     setFecha(formattedDate);
   };
 
@@ -166,9 +166,9 @@ export default function NuevoEvento() {
       <TouchableOpacity onPress={() => setOpen(true)}>
         <TextInput
           style={styles.input}
-          value={fecha}
           onChangeText={text => setFecha(text)}
-          placeholder="Selecciona la fecha"
+          value={fecha}
+          placeholder="Selecciona la fecha y hora"
           editable={false}
         />
       </TouchableOpacity>
@@ -176,7 +176,7 @@ export default function NuevoEvento() {
         modal
         open={open}
         date={date}
-        mode="date"
+        mode="datetime"
         onConfirm={date => {
           onDateChange(date);
         }}
@@ -208,6 +208,14 @@ export default function NuevoEvento() {
           </View>
         </>
       )}
+      <Text style={styles.label}>Descripción:</Text>
+      <TextInput
+        style={styles.input}
+        value={descripcion}
+        onChangeText={text => setDescripcion(text)}
+        multiline={true} // Permite múltiples líneas de texto
+        numberOfLines={4} // Puedes ajustar el número de líneas según tus necesidades
+      />
 
       <TouchableOpacity style={styles.buttonPrimary} onPress={agregarEvento}>
         <Text style={styles.buttonTextPrimary}>Agregar Evento</Text>
