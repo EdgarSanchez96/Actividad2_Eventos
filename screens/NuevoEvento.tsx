@@ -62,8 +62,7 @@ export default function NuevoEvento({navigation}: Props) {
         Toast.show({
           type: 'error',
           text1: 'Atención',
-          text2:
-            'El costo debe ser un número decimal mayor a cero.',
+          text2: 'El costo debe ser un número decimal mayor a cero.',
           visibilityTime: 3000,
         });
         return;
@@ -175,6 +174,11 @@ export default function NuevoEvento({navigation}: Props) {
       <TouchableOpacity style={styles.buttonPrimary} onPress={agregarEvento}>
         <Text style={styles.buttonTextPrimary}>Agregar Evento</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.buttonSecondary}
+        onPress={() => navigation.navigate('Eventos')}>
+        <Text style={styles.buttonTextPrimary}>Listar Eventos</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -208,8 +212,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginBottom: 10,
   },
-  buttonPrimary: {
-    backgroundColor: '#E94067',
+  buttonSecondary: {
+    backgroundColor: 'gray',
     padding: 10,
     borderRadius: 20,
     marginBottom: 10,
@@ -223,6 +227,12 @@ const styles = StyleSheet.create({
     color: '#F6ECEB',
     fontSize: 16,
     textAlign: 'center',
+  },
+  buttonPrimary: {
+    backgroundColor: '#E94067',
+    padding: 10,
+    borderRadius: 20,
+    marginBottom: 10,
   },
   imagenSeleccionada: {
     width: 'auto',

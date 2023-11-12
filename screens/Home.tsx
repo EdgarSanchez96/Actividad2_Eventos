@@ -1,5 +1,5 @@
-import {StackNavigationProp} from '@react-navigation/stack';
 import React from 'react';
+import {StackNavigationProp} from '@react-navigation/stack';
 import {Button, Image, StyleSheet, View} from 'react-native';
 
 interface Props {
@@ -9,18 +9,15 @@ interface Props {
 export default function Home({navigation}: Props) {
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.logo}
-        source={require('../assets/logo.png')}
-      />
+      <Image style={styles.logo} source={require('../assets/logo.png')} />
       <View style={styles.buttonContainer}>
-        <Button
+        <CustomButton
           title="Ir a los eventos"
           onPress={() => navigation.navigate('Eventos')}
           color="#E94067"
         />
         <View style={styles.separator} />
-        <Button
+        <CustomButton
           title="Nuevo evento"
           onPress={() => navigation.navigate('NuevoEvento')}
           color="#E94067"
@@ -30,6 +27,12 @@ export default function Home({navigation}: Props) {
   );
 }
 
+const CustomButton = ({title, onPress, color}: any) => (
+  <View style={styles.button}>
+    <Button title={title} onPress={onPress} color={color} />
+  </View>
+);
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#F6ECEB',
@@ -37,13 +40,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  fuente: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
   buttonContainer: {
     marginTop: 20,
+    alignItems: 'center',
+  },
+  button: {
+    width: '80%',
+    marginBottom: 15,
+    borderRadius: 10,
+    overflow: 'hidden',
   },
   logo: {
     width: 100,
