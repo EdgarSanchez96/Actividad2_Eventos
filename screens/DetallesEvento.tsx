@@ -1,21 +1,39 @@
-import {StackNavigationProp} from '@react-navigation/stack';
-import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import React, { useState, useEffect } from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
 interface PropsEvento {
   route: any;
   navigation: StackNavigationProp<any>;
 }
 
-export default function DetallesEvento({route, navigation}: PropsEvento) {
-  const {evento} = route.params;
+export default function DetallesEvento({ route, navigation }: PropsEvento) {
+  const { evento } = route.params;
+  const [fecha, setFecha] = useState('');
+  const [hora, setHora] = useState('');
+  const [gratuito, setGratuito] = useState('');
+  const [costo, setCosto] = useState('');
+
+  useEffect(() => {
+    const fechaCompuesta = evento.fecha_hora.split(' ');
+    setFecha(fechaCompuesta[0]);
+    setHora(fechaCompuesta[1]);
+
+    const esGratuito = evento.gratuito;
+    setGratuito(esGratuito ? "Gratuito" : "De pago");
+
+    if (evento.costo !== null && evento.costo !== undefined) {
+      const costoRedondeado = evento.costo.toFixed(2);
+      setCosto(costoRedondeado);
+    }
+  }, [evento.fecha_hora, evento.gratuito, evento.costo]);
 
   return (
     <View style={styles.container}>
       <Image
         source={
           evento.imagen
-            ? {uri: evento.imagen}
+            ? { uri: evento.imagen }
             : require('../assets/default_image.png')
         }
         style={styles.eventoImagen}
@@ -23,18 +41,34 @@ export default function DetallesEvento({route, navigation}: PropsEvento) {
       <View style={styles.eventoInfo}>
         <Text style={styles.eventoTitulo}>{evento.titulo}</Text>
 
-        <Text style={styles.eventoFecha}>{evento.fecha_hora}</Text>
+        <View style={styles.eventoRow}>
+          <Text style={styles.eventoLabel}>Fecha: </Text>
+          <Text style={styles.eventoContenido}>{fecha}</Text>
+        </View>
 
-        {evento.gratuito ? (
-          <Text style={styles.eventoGratuito}>Gratuito</Text>
-        ) : (
-          <>
-            <Text style={styles.eventoPago}>De pago</Text>
-            <Text style={styles.eventoCosto}>$ {evento.costo}</Text>
-          </>
+        <View style={styles.eventoRow}>
+          <Text style={styles.eventoLabel}>Hora: </Text>
+          <Text style={styles.eventoContenido}>{hora}</Text>
+        </View>
+
+        <View style={styles.eventoRow}>
+          <Text style={styles.eventoLabel}>Acceso: </Text>
+          <Text style={{ ...styles.eventoContenido, color: evento.gratuito ? 'green' : 'red' }}>
+            {gratuito}
+          </Text>
+        </View>
+
+        {!evento.gratuito && (
+          <View style={styles.eventoRow}>
+            <Text style={styles.eventoLabel}>Costo: </Text>
+            <Text style={styles.eventoContenido}>$ {costo}</Text>
+          </View>
         )}
-        <Text style={styles.eventoDescripcion}>{evento.descripcion}</Text>
       </View>
+
+      <Text style={styles.eventoLabel}>Descripción:</Text>
+      <Text style={styles.eventoContenido}>{evento.descripcion.trim()}</Text>
+
     </View>
   );
 }
@@ -44,8 +78,19 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     flexDirection: 'column',
-    alignItems: 'center',
+    justifyContent: 'flex-start'
+  },
+  eventoInfo: {
+    marginBottom: 20,
+    flexDirection: 'column',
     justifyContent: 'flex-start',
+    alignItems: 'flex-start'
+  },
+  eventoRow: {
+    marginTop: 10,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
   },
   eventoTitulo: {
     fontSize: 24,
@@ -53,34 +98,18 @@ const styles = StyleSheet.create({
   },
   eventoImagen: {
     width: '100%',
-    height: 250,
+    height: 200,
     resizeMode: 'cover',
     borderRadius: 25,
     marginRight: 10,
     marginBottom: 20,
   },
-  eventoInfo: {
-    marginBottom: 20,
-    alignItems: 'center',
+  eventoLabel: {
+    fontSize: 20,
+    fontWeight: 'bold'
   },
-  eventoFecha: {
+  eventoContenido: {
     fontSize: 18,
-    color: 'gray',
-  },
-  eventoGratuito: {
-    fontSize: 14,
-    color: 'green',
-    fontWeight: 'bold',
-  },
-  eventoPago: {
-    color: 'red',
-    fontSize: 14,
-  },
-  eventoCosto: {
-    fontSize: 14,
-  },
-  eventoDescripcion: {
-    fontSize: 18,
-    color: 'gray',
+    marginLeft: 8
   },
 });
